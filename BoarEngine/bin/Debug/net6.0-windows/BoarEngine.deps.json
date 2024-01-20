@@ -8,15 +8,15 @@
     ".NETCoreApp,Version=v6.0": {
       "BoarEngine/1.0.0": {
         "dependencies": {
-          "PropertyCustomControl": "1.0.0"
+          "CustomControlLibrary": "1.0.0"
         },
         "runtime": {
           "BoarEngine.dll": {}
         }
       },
-      "PropertyCustomControl/1.0.0": {
+      "CustomControlLibrary/1.0.0": {
         "runtime": {
-          "PropertyCustomControl.dll": {}
+          "CustomControlLibrary.dll": {}
         }
       }
     }
@@ -27,7 +27,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "PropertyCustomControl/1.0.0": {
+    "CustomControlLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

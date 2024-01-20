@@ -9,12 +9,12 @@ BoarEngine
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
+Q:\BoarEngine\BoarEngine\App.xaml
+2-1440356669
 
-32033585303
+151437124462
+195-1585594077
+Themes\Generic.xaml;Views\MainWindow.xaml;
 
-13953757764
-1951571882202
-App.xaml;Misc\UserControls\TreeItemUserControl.xaml;Views\MainWindow.xaml;
-
-False
+True
 

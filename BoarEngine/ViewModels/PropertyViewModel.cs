@@ -1,6 +1,6 @@
 ﻿using BoarEngine.Misc;
-using PropertyCustomControl;
-using PropertyCustomControl.Misc;
+using CustomControlLibrary;
+using CustomControlLibrary.Misc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,19 +13,21 @@ namespace BoarEngine.ViewModels
 {
     internal class PropertyViewModel : ViewModelBase
     {
-        public PropertyViewModel(MainViewModel mainViewModel, string name, string content, PropertyType type)
+        public PropertyViewModel(MainViewModel mainViewModel, string name, object content, PropertyType type)
         {
             _mainViewModel = mainViewModel;
             PropertyName = name;
             Content = content;
             Type = type;
+            _active = true;
         }
 
         private MainViewModel _mainViewModel;
         private string _name;
-        private string _content;
+        private object _content;
         private RelayCommand _remove;
         private PropertyType _type;
+        private bool _active;
 
         private void RemoveProp(object prop)
         {
@@ -44,7 +46,7 @@ namespace BoarEngine.ViewModels
             set => SetProperty(ref _name, value);
         }
 
-        public string Content
+        public object Content
         {
             get => _content;
             set => SetProperty(ref _content, value);
@@ -54,6 +56,12 @@ namespace BoarEngine.ViewModels
         {
             get => _type;
             set => SetProperty(ref _type, value);
+        }
+
+        public bool Active
+        {
+            get => _active;
+            set => SetProperty(ref _active, value);
         }
 
         public RelayCommand Remove

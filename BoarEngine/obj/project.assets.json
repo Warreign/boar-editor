@@ -2,14 +2,14 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
-      "PropertyCustomControl/1.0.0": {
+      "CustomControlLibrary/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "compile": {
-          "bin/placeholder/PropertyCustomControl.dll": {}
+          "bin/placeholder/CustomControlLibrary.dll": {}
         },
         "runtime": {
-          "bin/placeholder/PropertyCustomControl.dll": {}
+          "bin/placeholder/CustomControlLibrary.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -18,15 +18,15 @@
     }
   },
   "libraries": {
-    "PropertyCustomControl/1.0.0": {
+    "CustomControlLibrary/1.0.0": {
       "type": "project",
-      "path": "../PropertyCustomControl/PropertyCustomControl.csproj",
-      "msbuildProject": "../PropertyCustomControl/PropertyCustomControl.csproj"
+      "path": "../CustomControlLibrary/CustomControlLibrary.csproj",
+      "msbuildProject": "../CustomControlLibrary/CustomControlLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "PropertyCustomControl >= 1.0.0"
+      "CustomControlLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -61,8 +61,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "Q:\\BoarEngine\\PropertyCustomControl\\PropertyCustomControl.csproj": {
-              "projectPath": "Q:\\BoarEngine\\PropertyCustomControl\\PropertyCustomControl.csproj"
+            "Q:\\BoarEngine\\CustomControlLibrary\\CustomControlLibrary.csproj": {
+              "projectPath": "Q:\\BoarEngine\\CustomControlLibrary\\CustomControlLibrary.csproj"
             }
           }
         }

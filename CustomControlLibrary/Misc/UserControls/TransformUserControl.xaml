@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="CustomControlLibrary.Misc.UserControls.TransformUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CustomControlLibrary.Misc.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="250">
+    <UniformGrid Columns="3" x:Name="expanderContent" Margin="0">
+        <DockPanel>
+            <Label Content="X" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" DockPanel.Dock="Right"
+                         MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=ActualWidth}"
+                         Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=X, Mode=TwoWay}"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Y" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" DockPanel.Dock="Right"
+             MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=ActualWidth}"
+             Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Y, Mode=TwoWay}"/>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel>
+            <Label Content="Z" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" DockPanel.Dock="Right"
+             MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=ActualWidth}"
+             Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Z, Mode=TwoWay}"/>
+            </StackPanel>
+        </DockPanel>
+    </UniformGrid>
+</UserControl>

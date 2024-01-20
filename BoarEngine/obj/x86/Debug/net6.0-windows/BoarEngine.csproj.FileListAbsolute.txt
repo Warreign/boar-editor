@@ -1,0 +1,6 @@
+Q:\BoarEngine\BoarEngine\obj\x86\Debug\net6.0-windows\BoarEngine.csproj.AssemblyReference.cache
+Q:\BoarEngine\BoarEngine\obj\x86\Debug\net6.0-windows\Misc\UserControls\TreeItemUserControl.g.cs
+Q:\BoarEngine\BoarEngine\obj\x86\Debug\net6.0-windows\App.g.cs
+Q:\BoarEngine\BoarEngine\obj\x86\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+Q:\BoarEngine\BoarEngine\obj\x86\Debug\net6.0-windows\BoarEngine_MarkupCompile.cache
+Q:\BoarEngine\BoarEngine\obj\x86\Debug\net6.0-windows\BoarEngine_MarkupCompile.lref

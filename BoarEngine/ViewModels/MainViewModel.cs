@@ -1,26 +1,41 @@
 ﻿using BoarEngine.Misc;
 using BoarEngine.Misc.Helpers;
-using BoarEngine.Models;
-using PropertyCustomControl;
-using PropertyCustomControl.Misc;
+using CustomControlLibrary;
+using CustomControlLibrary.Misc;
+using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows;
+using System.Forms;
 
 namespace BoarEngine.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
         public RangedObservableCollection<PropertyViewModel> CurrentProperties { get; set; } = new RangedObservableCollection<PropertyViewModel>();
-        public ObservableCollection<ObjectViewModel> Objects { get; set; } = new ObservableCollection<ObjectViewModel>(); 
+        public RangedObservableCollection<FileViewModel> CurrentFiles { get; set; } = new RangedObservableCollection<FileViewModel>();
+        public ObservableCollection<ObjectViewModel> Objects { get; set; } = new ObservableCollection<ObjectViewModel>();
 
 
         private EngineImitation _engine;
         private ObjectViewModel _selectedObject;
+        private PropertyType _typeToAdd;
+        private string _nameToAdd;
+        private bool _boolToAdd;
+        private string _valueToAdd;
 
         public void SelectObject(object obj)
         {
+            if (obj == null)
+            {
+                _selectedObject = null;
+                CurrentProperties.Clear();
+                return;
+            }
+
             if (_selectedObject != null)
             {
                 _selectedObject.IsSelected = false;
@@ -28,7 +43,7 @@ namespace BoarEngine.ViewModels
             _selectedObject = (ObjectViewModel)obj;
             //CurrentProperties = _selectedObject.properties;
             CurrentProperties.ReplaceAll(_selectedObject.properties);
-            
+
             Debug.WriteLine("Selected " + _selectedObject.ObjectName);
         }
 
@@ -47,6 +62,94 @@ namespace BoarEngine.ViewModels
             }
         }
 
+        private void AddNewProperty()
+        {
+            if (TypeToAdd == PropertyType.BOOL)
+            {
+                CurrentProperties.Add(new PropertyViewModel(this, NameToAdd, BoolToAdd, TypeToAdd));
+            }
+            else if (TypeToAdd == PropertyType.VALUE)
+            {
+                CurrentProperties.Add(new PropertyViewModel(this, NameToAdd, ValueToAdd, TypeToAdd));
+                
+            }
+        }
+
+        private ObjectViewModel AddNewObject(string name)
+        {
+            var obj = CreateNewObject(name);
+            Objects.Add(obj);
+            return obj;
+        }
+
+        private ObjectViewModel AddNewObjectToSelected(string name)
+        {
+            var obj = CreateNewObject(name);
+            _selectedObject.children.Add(obj);
+            return obj;
+        }
+
+        private void AddObject(ObjectViewModel obj)
+        {
+            Objects.Add(obj);
+        }
+
+        private ObjectViewModel CreateNewObject(string name)
+        {
+            var obj = new ObjectViewModel(this, name);
+            obj.properties.Add(new PropertyViewModel(this, "Transform", new Transform(0, 0, 0), PropertyType.TRANSFORM));
+            return obj;
+        }
+
+        private void BrowseFiles()
+        {
+            dialog = new OpenFileDialog();
+            dialog.Title = "Open Folder";
+            dialog.InitialDirectory = @"c:\";
+            dialog.Filter = "All files (*.*)|*.*|All files (*.*)|*.*";
+            dialog.FilterIndex = 2;
+            dialog.RestoreDirectory = true;
+            if (dialog.ShowDialog() == true)
+            {
+
+            }
+        }
+
+        private void OpenObjectFile()
+        {
+
+        }
+
+        private bool OpenObjectFileCanExecute()
+        {
+            return true;
+        }
+
+        public PropertyType TypeToAdd
+        {
+            get => _typeToAdd;
+            set => SetProperty(ref _typeToAdd, value);
+        }
+
+        public string NameToAdd
+        {
+            get => _nameToAdd;
+            set => SetProperty(ref _nameToAdd, value);
+        }
+
+        public string ValueToAdd
+        {
+            get => _valueToAdd;
+            set => SetProperty(ref _valueToAdd, value);
+        }
+
+        public bool BoolToAdd
+        {
+            get => _boolToAdd;
+            set => SetProperty(ref _boolToAdd, value);
+        }
+        
+
         private RelayCommand _runCommand;
         public RelayCommand RunCommand 
         {
@@ -59,6 +162,24 @@ namespace BoarEngine.ViewModels
             get { return _stopCommand ?? (_stopCommand = new RelayCommand(obj => _engine.stop(), obj => !_engine.runnable())); }
         }
 
+        private RelayCommand _addPropertyCommand;
+        public RelayCommand AddPropertyCommand
+        {
+            get { return _addPropertyCommand ?? (_addPropertyCommand = new RelayCommand(obj => AddNewProperty(), obj => _selectedObject != null));  }
+        }
+
+        private RelayCommand _browseCommand;
+        public RelayCommand BrowseCommand
+        {
+            get { return _browseCommand ?? (_browseCommand = new RelayCommand(obj => BrowseFiles())); }
+        }
+
+        private RelayCommand _openObjectFileCommand;
+        public RelayCommand OpenObjectFileCommand
+        {
+            get { return _openObjectFileCommand ?? (_openObjectFileCommand = new RelayCommand(obj => OpenObjectFile(), obj => OpenObjectFileCanExecute())); }
+        }
+
         public MainViewModel()
         {
             _engine = new EngineImitation();
@@ -67,27 +188,54 @@ namespace BoarEngine.ViewModels
             CurrentProperties.CollectionChanged += new NotifyCollectionChangedEventHandler(PropertiesChanged);
 
 
-            var obj1 = new ObjectViewModel(this, "Obj 1");
-            //SelectObject(obj1);
-            obj1.properties.Add(new PropertyViewModel(this, "Transform", "Some content #1", PropertyType.TRANSFORM));
+            var obj1 = AddNewObject("Object #1");
+            AddNewObject("Object #2");
+            AddNewObject("Object #3");
+            AddNewObject("Object #4");
+
+            SelectObject(obj1);
             obj1.properties.Add(new PropertyViewModel(this, "Collider", "Some content #2", PropertyType.VALUE));
             obj1.properties.Add(new PropertyViewModel(this, "Terrain", "Some content #3", PropertyType.VALUE));
-            Objects.Add(obj1);
-            obj1.AddChild(new ObjectViewModel(this, "SubObj 1"));
-            var subobj2 = new ObjectViewModel(this, "SubObj 2");
-            obj1.AddChild(subobj2);
-            subobj2.AddChild(new ObjectViewModel(this, "SubSubObj 1"));
-            subobj2.AddChild(new ObjectViewModel(this, "SubSubObj 2"));
-            subobj2.AddChild(new ObjectViewModel(this, "SubSubObj 3"));
-            subobj2.AddChild(new ObjectViewModel(this, "SubSubObj 4"));
 
-            obj1.AddChild(new ObjectViewModel(this, "SubObj 3"));
-            obj1.AddChild(new ObjectViewModel(this, "SubObj 4"));
+            AddNewObjectToSelected("SubObject #1");
+            var subobj2 = AddNewObjectToSelected("SubObject #1");
+            AddNewObjectToSelected("SubObject #1");
+            AddNewObjectToSelected("SubObject #1");
 
+            SelectObject(subobj2);
+            subobj2.properties.Add(new PropertyViewModel(this, "Enabled", true, PropertyType.BOOL));
 
-            Objects.Add(new ObjectViewModel(this, "Obj 2"));
-            Objects.Add(new ObjectViewModel(this, "Obj 3"));
-            Objects.Add(new ObjectViewModel(this, "Obj 4"));
+            AddNewObjectToSelected("SubSubObject #1");
+            AddNewObjectToSelected("SubSubObject #2");
+            AddNewObjectToSelected("SubSubObject #3");
+            AddNewObjectToSelected("SubSubObject #4");
+
+            SelectObject(null);
+
+            CurrentFiles.Add(new FileViewModel("File #1"));
+            CurrentFiles.Add(new FileViewModel("File #2"));
+            CurrentFiles.Add(new FileViewModel("File #3"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #4"));
         }
     }
 
