@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 Q:\BoarEngine\BoarEngine\App.xaml
-1-1644662438
+2240601779
 
-8115700397
+11-816438062
 1951571882202
-Views\MainWindow.xaml;
+Misc\UserControls\TreeItemUserControl.xaml;Views\MainWindow.xaml;
 
 False
 

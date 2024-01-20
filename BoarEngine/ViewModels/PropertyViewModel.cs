@@ -29,7 +29,7 @@ namespace BoarEngine.ViewModels
 
         private void RemoveProp(object prop)
         {
-            _mainViewModel.Properties.Remove(this);
+            _mainViewModel.CurrentProperties.Remove(this);
             Trace.WriteLine("Deleted property " + _name + " " + _type);
         }
 

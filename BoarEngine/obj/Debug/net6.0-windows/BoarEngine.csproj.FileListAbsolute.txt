@@ -26,3 +26,5 @@ Q:\BoarEngine\BoarEngine\obj\Debug\net6.0-windows\refint\BoarEngine.dll
 Q:\BoarEngine\BoarEngine\obj\Debug\net6.0-windows\BoarEngine.pdb
 Q:\BoarEngine\BoarEngine\obj\Debug\net6.0-windows\BoarEngine.genruntimeconfig.cache
 Q:\BoarEngine\BoarEngine\obj\Debug\net6.0-windows\ref\BoarEngine.dll
+Q:\BoarEngine\BoarEngine\obj\Debug\net6.0-windows\Misc\UserControls\TreeItemUserControl.g.cs
+Q:\BoarEngine\BoarEngine\obj\Debug\net6.0-windows\Misc\UserControls\TreeItemUserControl.baml

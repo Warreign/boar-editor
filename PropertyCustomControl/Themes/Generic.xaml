@@ -6,18 +6,12 @@
 
     <converters:TypeToActiveConverter x:Key="typeToActiveConverter"/>
 
+    <Style TargetType="{x:Type TextBox}" x:Key="StyleTB">
+        <!--<Setter Property="Background" Value="#34b4eb"/>-->
+    </Style>
+
     <Style TargetType="{x:Type local:PropertyControl}"
            BasedOn="{StaticResource {x:Type Expander}}">
-
-        <!--<Style.Resources>
-            <Storyboard x:Key="sbCollapse" >
-                <DoubleAnimation Storyboard.TargetName="expanderContent"
-                                             From="0" 
-                                             To="1" 
-                                             Duration="0:0:0.5" 
-                                             Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(ScaleTransform.ScaleY)"/>
-            </Storyboard>
-        </Style.Resources>-->
 
         <Setter Property="Margin" Value="5, 5, 5, 0"/>
 
@@ -49,7 +43,7 @@
                             <UniformGrid Columns="3" x:Name="expanderContent">
                                 <DockPanel>
                                     <Label Content="X" FontWeight="Bold" DockPanel.Dock="Left"/>
-                                    <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" AcceptsReturn="False" DockPanel.Dock="Right"/>
+                                    <TextBox Style="{StaticResource StyleTB}" FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" AcceptsReturn="False" DockPanel.Dock="Right"/>
                                 </DockPanel>
                                 <DockPanel >
                                     <Label Content="Y" FontWeight="Bold" DockPanel.Dock="Left"/>
@@ -85,7 +79,7 @@
             </Trigger>
 
             <Trigger Property="IsExpanded" Value="False">
-                <Setter Property="Background" Value="Aqua"/>
+                <Setter Property="Background" Value="DarkGray"/>
             </Trigger>
         </Style.Triggers>
     </Style>

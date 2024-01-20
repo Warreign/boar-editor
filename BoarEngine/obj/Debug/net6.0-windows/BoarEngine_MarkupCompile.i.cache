@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 
-2148321086
+32033585303
 
-101885896223
+13953757764
 1951571882202
-App.xaml;Views\MainWindow.xaml;
+App.xaml;Misc\UserControls\TreeItemUserControl.xaml;Views\MainWindow.xaml;
 
 False
 
