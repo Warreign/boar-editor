@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Printing;
 using System.Text;
@@ -14,6 +15,7 @@ namespace BoarEngine.Models
         public void run()
         {
             running = true;
+            Debug.WriteLine("Started the engine");
         }
 
         public bool runnable()

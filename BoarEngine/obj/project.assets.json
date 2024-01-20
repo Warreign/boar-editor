@@ -1,11 +1,33 @@
 {
   "version": 3,
   "targets": {
-    "net6.0-windows7.0": {}
+    "net6.0-windows7.0": {
+      "PropertyCustomControl/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/PropertyCustomControl.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PropertyCustomControl.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "PropertyCustomControl/1.0.0": {
+      "type": "project",
+      "path": "../PropertyCustomControl/PropertyCustomControl.csproj",
+      "msbuildProject": "../PropertyCustomControl/PropertyCustomControl.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0-windows7.0": []
+    "net6.0-windows7.0": [
+      "PropertyCustomControl >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Viktor Shubert\\.nuget\\packages\\": {},
@@ -38,7 +60,11 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "Q:\\BoarEngine\\PropertyCustomControl\\PropertyCustomControl.csproj": {
+              "projectPath": "Q:\\BoarEngine\\PropertyCustomControl\\PropertyCustomControl.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
