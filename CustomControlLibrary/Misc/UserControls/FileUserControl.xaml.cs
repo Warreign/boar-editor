@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomControlLibrary.Misc.ValidationRules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,15 @@ namespace CustomControlLibrary.Misc.UserControls
             set => SetValue(FilepathProperty, value);
         }
 
+        public FSEntryType EntryType
+        {
+            get => (FSEntryType)GetValue(EntryTypeProperty);
+            set => SetValue(EntryTypeProperty, value);
+        }
+
         public static readonly DependencyProperty FilepathProperty =
             DependencyProperty.Register("FilePath", typeof(string), typeof(FileUserControl));
+        public static readonly DependencyProperty EntryTypeProperty =
+            DependencyProperty.Register("EntryType", typeof(FSEntryType), typeof(FileUserControl));
     }
 }

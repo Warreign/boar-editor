@@ -8,15 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\icon.png" />
+    <None Remove="Images\directory.png" />
+    <None Remove="Images\file.png" />
+    <None Remove="Images\Icon.png" />
     <None Remove="Images\icon2.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\icon.png">
+    <Resource Include="Images\file.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\icon2.png">
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\directory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

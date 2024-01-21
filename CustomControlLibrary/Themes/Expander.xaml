@@ -30,37 +30,12 @@
             </Setter.Value>
         </Setter>
 
-        <Setter Property="IsExpanded" Value="True"/>
-
         <!--Display transform properties-->
         <Style.Triggers>
             <Trigger Property="Type" Value="TRANSFORM">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
-                            <!--<UniformGrid Columns="3" x:Name="expanderContent">
-                                <DockPanel>
-                                    <Label Content="X" FontWeight="Bold" DockPanel.Dock="Left"/>
-                                    <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" AcceptsReturn="False" DockPanel.Dock="Right"
-                                             Text="{Binding RelativeSource={RelativeSource AncestorType=Expander}, 
-                                                            Path=Prop.X,  
-                                                            Mode=TwoWay}"/>
-                                </DockPanel>
-                                <DockPanel >
-                                    <Label Content="Y" FontWeight="Bold" DockPanel.Dock="Left"/>
-                                    <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" AcceptsReturn="False" DockPanel.Dock="Right"
-                                             Text="{Binding RelativeSource={RelativeSource AncestorType=Expander}, 
-                                                           Path=Prop.Y,  
-                                                           Mode=TwoWay}"/>
-                                </DockPanel>
-                                <DockPanel>
-                                    <Label Content="Z" FontWeight="Bold" DockPanel.Dock="Left"/>
-                                    <TextBox FontSize="16" FontWeight="Bold" TextWrapping="NoWrap" AcceptsReturn="False" DockPanel.Dock="Right"
-                                             Text="{Binding RelativeSource={RelativeSource AncestorType=Expander}, 
-                                                           Path=Prop.Z,  
-                                                           Mode=TwoWay}"/>
-                                </DockPanel>
-                            </UniformGrid>-->
                             <uc:TransformUserControl X="{Binding RelativeSource={RelativeSource AncestorType=Expander},
                                                                  Path=Prop.X, Mode=TwoWay}"
                                                      Y="{Binding RelativeSource={RelativeSource AncestorType=Expander},

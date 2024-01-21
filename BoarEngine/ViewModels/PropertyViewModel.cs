@@ -20,6 +20,7 @@ namespace BoarEngine.ViewModels
             Content = content;
             Type = type;
             _active = true;
+            _expanded = true;
         }
 
         private MainViewModel _mainViewModel;
@@ -28,6 +29,7 @@ namespace BoarEngine.ViewModels
         private RelayCommand _remove;
         private PropertyType _type;
         private bool _active;
+        private bool _expanded;
 
         private void RemoveProp(object prop)
         {
@@ -62,6 +64,12 @@ namespace BoarEngine.ViewModels
         {
             get => _active;
             set => SetProperty(ref _active, value);
+        }
+
+        public bool IsExpanded
+        {
+            get => _expanded;
+            set => SetProperty(ref _expanded, value);
         }
 
         public RelayCommand Remove

@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "G7n++0oBumB0ZUlVS/jpQw+FWpqLzg3HclMV4ldNYkE8y7x/cieQp845wb2uwlICZ//SEi/bG2kamrdeDDZ7hQ==",
+  "dgSpecHash": "IgwVFoubUY7dCrv5SDCXx0/UytX9nQmu539OAd4qiH5/11Wivy2DxfMXb8BtzLqH8Ewn/wfTJKZ35lKlYVgtqA==",
   "success": true,
   "projectFilePath": "Q:\\BoarEngine\\BoarEngine\\BoarEngine.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Viktor Shubert\\.nuget\\packages\\microsoft-windowsapicodepack-core\\1.1.5\\microsoft-windowsapicodepack-core.1.1.5.nupkg.sha512",
+    "C:\\Users\\Viktor Shubert\\.nuget\\packages\\microsoft-windowsapicodepack-shell\\1.1.5\\microsoft-windowsapicodepack-shell.1.1.5.nupkg.sha512"
+  ],
   "logs": []
 }

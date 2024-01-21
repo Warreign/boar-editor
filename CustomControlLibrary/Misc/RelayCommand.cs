@@ -35,6 +35,7 @@ namespace CustomControlLibrary
             return _canExecute == null ? true : _canExecute(parameter);
         }
 
+
         public void Execute(object? parameter)
         {
             _execute(parameter);

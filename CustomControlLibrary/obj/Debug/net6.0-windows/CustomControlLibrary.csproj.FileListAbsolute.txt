@@ -39,4 +39,3 @@ Q:\BoarEngine\CustomControlLibrary\obj\Debug\net6.0-windows\Misc\UserControls\Tr
 Q:\BoarEngine\CustomControlLibrary\obj\Debug\net6.0-windows\Misc\UserControls\TransformUserControl.baml
 Q:\BoarEngine\CustomControlLibrary\obj\Debug\net6.0-windows\Misc\UserControls\FileUserControl.g.cs
 Q:\BoarEngine\CustomControlLibrary\obj\Debug\net6.0-windows\Misc\UserControls\FileUserControl.baml
-Q:\BoarEngine\CustomControlLibrary\bin\Debug\net6.0-windows\Images\icon.png

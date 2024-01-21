@@ -1,15 +1,17 @@
-﻿using BoarEngine.Misc;
+﻿using CustomControlLibrary.Misc.ValidationRules;
+using BoarEngine.Misc;
 using BoarEngine.Misc.Helpers;
 using CustomControlLibrary;
 using CustomControlLibrary.Misc;
 using Microsoft.Win32;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows;
-using System.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using System.IO;
+using Microsoft.VisualBasic;
+using System.Windows.Input;
+using System;
 
 namespace BoarEngine.ViewModels
 {
@@ -26,6 +28,7 @@ namespace BoarEngine.ViewModels
         private string _nameToAdd;
         private bool _boolToAdd;
         private string _valueToAdd;
+        private FileViewModel _selectedFile;
 
         public void SelectObject(object obj)
         {
@@ -47,6 +50,7 @@ namespace BoarEngine.ViewModels
             Debug.WriteLine("Selected " + _selectedObject.ObjectName);
         }
 
+        // Update object property collections when adding or removing proeprties
         private void PropertiesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -62,6 +66,7 @@ namespace BoarEngine.ViewModels
             }
         }
 
+        // Add property based on type
         private void AddNewProperty()
         {
             if (TypeToAdd == PropertyType.BOOL)
@@ -73,6 +78,12 @@ namespace BoarEngine.ViewModels
                 CurrentProperties.Add(new PropertyViewModel(this, NameToAdd, ValueToAdd, TypeToAdd));
                 
             }
+        }
+
+        // Check if there is a seelcted object and if the name isn't empty
+        private bool AddPropertyCanExecute()
+        {
+            return _selectedObject != null;
         }
 
         private ObjectViewModel AddNewObject(string name)
@@ -94,6 +105,7 @@ namespace BoarEngine.ViewModels
             Objects.Add(obj);
         }
 
+        // Create an empty object with mandatory transform proprety 
         private ObjectViewModel CreateNewObject(string name)
         {
             var obj = new ObjectViewModel(this, name);
@@ -103,26 +115,56 @@ namespace BoarEngine.ViewModels
 
         private void BrowseFiles()
         {
-            dialog = new OpenFileDialog();
+            Collection<FileViewModel> newFiles = new Collection<FileViewModel>();
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
             dialog.Title = "Open Folder";
             dialog.InitialDirectory = @"c:\";
-            dialog.Filter = "All files (*.*)|*.*|All files (*.*)|*.*";
-            dialog.FilterIndex = 2;
             dialog.RestoreDirectory = true;
-            if (dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                Debug.WriteLine("Chosen file " + dialog.FileName);
 
+                DirectoryInfo d = new DirectoryInfo(dialog.FileName); ;
+                FileInfo[] infos = d.GetFiles();
+                DirectoryInfo[] dinfos = d.GetDirectories();
+
+                Debug.WriteLine(string.Format("{0} directories and {1} files.", infos.GetLength(0), dinfos.GetLength(0)));
+
+                foreach (var i in infos)
+                {
+                    newFiles.Add(new FileViewModel(i.Name, FSEntryType.FILE));
+                }
+
+                foreach (var di in dinfos)
+                {
+                    newFiles.Add(new FileViewModel(di.Name, FSEntryType.DIRECTORY));
+                }
+
+                CurrentFiles.ReplaceAll(newFiles);
             }
+
         }
 
         private void OpenObjectFile()
         {
+            Debug.WriteLine("Selected file " + SelectedFile.FilePath);
 
+            string name = SelectedFile.FilePath;
+
+            if (_selectedObject == null)
+            {
+                AddNewObject(name);
+            }
+            else
+            {
+                AddNewObjectToSelected(name);
+            }
         }
 
         private bool OpenObjectFileCanExecute()
         {
-            return true;
+            return SelectedFile != null && SelectedFile.Type == FSEntryType.FILE;
         }
 
         public PropertyType TypeToAdd
@@ -134,7 +176,10 @@ namespace BoarEngine.ViewModels
         public string NameToAdd
         {
             get => _nameToAdd;
-            set => SetProperty(ref _nameToAdd, value);
+            set
+            {
+                SetProperty(ref _nameToAdd, value);
+            }
         }
 
         public string ValueToAdd
@@ -147,6 +192,12 @@ namespace BoarEngine.ViewModels
         {
             get => _boolToAdd;
             set => SetProperty(ref _boolToAdd, value);
+        }
+
+        public FileViewModel SelectedFile
+        {
+            get => _selectedFile;
+            set => SetProperty(ref _selectedFile, value);
         }
         
 
@@ -165,7 +216,7 @@ namespace BoarEngine.ViewModels
         private RelayCommand _addPropertyCommand;
         public RelayCommand AddPropertyCommand
         {
-            get { return _addPropertyCommand ?? (_addPropertyCommand = new RelayCommand(obj => AddNewProperty(), obj => _selectedObject != null));  }
+            get { return _addPropertyCommand ?? (_addPropertyCommand = new RelayCommand(obj => AddNewProperty(), obj => AddPropertyCanExecute()));  }
         }
 
         private RelayCommand _browseCommand;
@@ -212,30 +263,30 @@ namespace BoarEngine.ViewModels
 
             SelectObject(null);
 
-            CurrentFiles.Add(new FileViewModel("File #1"));
-            CurrentFiles.Add(new FileViewModel("File #2"));
-            CurrentFiles.Add(new FileViewModel("File #3"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
-            CurrentFiles.Add(new FileViewModel("File #4"));
+            CurrentFiles.Add(new FileViewModel("File #1", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #2", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #3", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
+            CurrentFiles.Add(new FileViewModel("File #4", FSEntryType.FILE));
         }
     }
 

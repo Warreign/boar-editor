@@ -95,5 +95,6 @@ namespace CustomControlLibrary
              DependencyProperty.Register("Type", typeof(PropertyType), typeof(PropertyControl));
         public static readonly DependencyProperty ActiveProperty =
              DependencyProperty.Register("Active", typeof(bool), typeof(PropertyControl));
+
     }
 }
